@@ -1,0 +1,70 @@
+@import 'variables';
+.CarItem{
+  margin: 10px 0;
+  height: 150px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid $grey;
+  border-left: none;
+  .CarItem__photo {
+    width: 180px;
+    height: 148px;
+    background-size: cover;
+  }
+  .CarItem__info{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin: 0 $margin-cards ;
+    .CarItem__params,.CarItem__offer{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+    .CarItem__offer{
+      text-align: right;
+      .CarItem__offer-date{
+        color: $grey;
+      }
+    }
+  }
+  &:hover{
+    background-color: $h-grey;
+    transition: background-color $time;
+  }
+}
+@media (max-width: 1650px) {
+  .CarItem{
+    margin: calc(3px + (10 - 3) * ((100vw - 320px) / (1650 - 320))) 0;
+    height: calc(75px + (150 - 75) * ((100vw - 320px) / (1650 - 320)));
+    .CarItem__photo{
+      width: calc(90px + (180 - 90) * ((100vw - 320px) / (1650 - 320)));
+      height: calc(73px + (148 - 73) * ((100vw - 320px) / (1650 - 320)));
+    }
+    .CarItem__info{
+      .CarItem__params{
+        .CarItem__params-title{
+          font-size: calc(12px + (18 - 12) * ((100vw - 320px) / (1650 - 320)));
+        }
+        font-size: calc(8px + (16 - 8) * ((100vw - 320px) / (1650 - 320)));
+      }
+      .CarItem__offer{
+        .CarItem__offer-price{
+          font-size: calc(12px + (16 - 12) * ((100vw - 320px) / (1650 - 320)));
+        }
+        .CarItem__offer-city{
+          font-size: calc(8px + (12 - 8) * ((100vw - 320px) / (1650 - 320)));
+        }
+        .CarItem__offer-date{
+          font-size: calc(9px + (10 - 9) * ((100vw - 320px) / (1650 - 320)));
+        }
+      }
+    }
+
+  }
+}
+

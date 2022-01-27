@@ -1,0 +1,9 @@
+.Layout{
+  max-width: 1600px;
+  margin: 0 auto;
+}
+@media (max-width: 1650px) {
+  .Layout{
+    padding: 0 calc(20px + (50 - 20) * ((100vw - 320px) / (1650 - 320)));
+  }
+}

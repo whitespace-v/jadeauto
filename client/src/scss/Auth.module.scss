@@ -1,0 +1,39 @@
+@import "variables";
+@import "mixins";
+
+.Auth{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  .Auth__page{
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    max-width: fit-content;
+    padding: 15px 0;
+  p{
+    padding: 5px 0;
+  }
+  }
+  h1{
+    font-size: $f-middle;
+  }
+  .Auth__form{
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+    .Modal__data-button{
+      @include button();
+    }
+  }
+  input{
+    @include input();
+
+  }
+  a{
+    @include link();
+  }
+}

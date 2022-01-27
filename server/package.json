@@ -1,0 +1,48 @@
+{
+  "name": "jadeauto",
+  "version": "1.0.0",
+  "description": "online catalog with rest API and W/A order sending ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "14.15.4"
+  },
+  "author": "Nikita Borisenko <grs2143@mail.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "postgresql": "^0.0.1",
+    "sequelize": "^6.12.0-beta.2",
+    "twilio": "^3.30.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependenciesComments": {
+    "cors": "queries from browser to our server",
+    "dotenv": "variables to enviroments",
+    "express": "framework for manage database by code ",
+    "pg": "database postgres",
+    "pg-hstore": "database postgres",
+    "sequelize": "ORM (Object-Relational Mapping)",
+    "nodemon": "live reload in dev mode",
+    "express-fileupload": "for express files uploads",
+    "uuid": "for generating unique id",
+    "bcrypt": "hash passwords and not keep them open",
+    "jsonwebtoken": "generate JWT (json-web-token (model: HEADER.PAYLOAD(EMAIL,NUMBER,PASSWORD).SIGNATURE))",
+    "twilio": "for send What's app messages"
+  }
+}

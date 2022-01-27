@@ -1,0 +1,60 @@
+@import 'variables';
+@import "mixins";
+.Footer{
+  color:white;
+  .Footer__line{
+    width: 1000px;
+    height: 2px;
+    background-color: $red;
+    margin: 60px auto 20px;
+  }
+  .Footer__container{
+    display: flex;
+    justify-content: space-between;
+    .Footer__column-logo{
+      display: flex;
+      align-items: center;
+      .Footer__column-logo-icon{
+        width: 100px;
+        height: 100px;
+        background-size: cover;
+      }
+      .Footer__column-logo-description{
+        p:first-child{
+          font-size: 30px;
+        }
+        .Footer__column-logo-description-v{
+          color: $grey;
+        }
+      }
+    }
+    .Footer__column-requisites{
+      a{
+        @include link();
+      }
+    }
+  }
+
+
+}
+@media (max-width: 1650px) {
+  .Footer{
+    .Footer__line {
+      width: calc(200px + (1000 - 200) * ((100vw - 320px) / (1650 - 320)));
+    }
+    .Footer__container{
+      font-size: calc(6px + (16 - 6) * ((100vw - 320px) / (1650 - 320)));
+      .Footer__column-logo{
+        .Footer__column-logo-icon{
+          width: calc(40px + (100 - 40) * ((100vw - 320px) / (1650 - 320)));
+          height: calc(40px + (100 - 40) * ((100vw - 320px) / (1650 - 320)));
+        }
+        .Footer__column-logo-description{
+          p:first-child{
+            font-size: calc(12px + (30 - 12) * ((100vw - 320px) / (1650 - 320)));
+          };
+        }
+      }
+    }
+  }
+}

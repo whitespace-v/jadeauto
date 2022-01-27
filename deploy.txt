@@ -1,0 +1,8 @@
+1. install postgres, create user and database with grant privileges, edit user role as 'ADMIN', and type varchar(1000000) to cars -> description
+2. install nginx and enable ufw (firewall)
+3. move project to /var/www/html
+4. install pm2 two processes and save 'em
+5. create config for /etc/nginx/sites-enabled/default (2 upstream processes with dif ports) and for /api location & /send-message to proxy back_upstream & max_body_size 1000M (for uploading); and location ~* \.(jpeg|jpg|mp4)$ { root /var/www/html/project/server/static; } (for reading files)
+6. install certbot and get ssl
+7. ~done
+

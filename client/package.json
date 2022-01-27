@@ -1,0 +1,61 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.24.0",
+    "browser-image-compression": "^1.0.17",
+    "core-js-compat": "^3.4.7",
+    "disable-scroll": "^0.6.0",
+    "file-loader": "^6.2.0",
+    "jwt-decode": "^3.1.2",
+    "mobx": "^6.3.8",
+    "mobx-react-lite": "^3.2.2",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.3",
+    "react-dom": "^17.0.2",
+    "react-input-mask": "^2.0.4",
+    "react-player": "^2.9.0",
+    "react-router-dom": "^6.1.1",
+    "react-scripts": "^5.0.0",
+    "url-loader": "^4.1.1",
+    "web-vitals": "^1.0.1"
+  },
+  "dependenciesComments": {
+    "axios": "queries on servers",
+    "mobx": "State manager",
+    "mobx-react-lite": "connect MobX with Functional React Components",
+    "react-router-dom": "pagination",
+    "react-bootstrap": "for pagination"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "sass": "^1.44.0"
+  }
+}
