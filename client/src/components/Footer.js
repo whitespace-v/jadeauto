@@ -11,12 +11,16 @@ const Footer = () => {
                 <div className={classes['Footer__container']}>
 
                     <div className={classes['Footer__column-logo']}>
-                        <div className={classes['Footer__column-logo-icon']} style={{backgroundImage: `url("${logo}")`}}
+                        <div
+                            className={classes['Footer__column-logo-icon']}
+                            style={{backgroundImage: `url("${logo}")`}}
                         />
                         <div className={classes['Footer__column-logo-description']}>
                             <p>Jade Auto</p>
                             <p>Владивосток / Казахстан</p>
-                            <p className={classes['Footer__column-logo-description-v']}>beta: v1.8.1</p>
+                            <p className={classes['Footer__column-logo-description-v']}
+                            >beta: v1.8.1
+                            </p>
                         </div>
                     </div>
 
