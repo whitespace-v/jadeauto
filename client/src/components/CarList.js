@@ -7,18 +7,16 @@ import Layout from '../utils/Layout'
 
 const CarList = observer(() => {
     const {car} = useContext(Context)
-
-
     return (
         <Layout>
             <div className={classes.CarList}>
-                {car.cars.map((car,index) =>
+                { car.cars ? car.cars.map((car,index) =>
                     <CarItem
                         key={index}                //check for problems
                         car={car}
                         index={index}
                     />
-                )}
+                ) : <span>Подходящих машин нет!</span>}
             </div>
         </Layout>
 

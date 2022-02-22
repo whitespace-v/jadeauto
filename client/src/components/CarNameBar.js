@@ -7,13 +7,10 @@ import Layout from '../utils/Layout'
 const CarNameBar = observer(() => {
     const {car} = useContext(Context)
 
-    useEffect(() => {
-        car.setSelectedCarName("all");
-    },[car])
 
     useEffect(() => {
         car.setSelectedCarName('all')
-    }, [car, car.selectedManufacturer])
+    }, [car.selectedManufacturer.id])
 
     const getAllCars= () => {
         car.setSelectedCarName("all");

@@ -15,8 +15,28 @@ export const createCarName = async (CarName) => {
     return data
 }
 
+export const createCityCar = async (CityCar) => {
+    const {data} = await $authHost.post('api/carstatus', CityCar)
+    return data
+}
+export const createActive = async (value) => {
+    const {data} = await $authHost.post('api/caractive', value)
+    return data
+}
+
+
 export const fetchCarNames = async () => {
     const {data} = await $host.get('api/carname')
+    return data
+}
+
+export const fetchCarActives = async () => {
+    const {data} = await $host.get('api/caractive')
+    return data
+}
+
+export const fetchCarStatuses = async () => {
+    const {data} = await $host.get('api/carstatus')
     return data
 }
 
@@ -25,9 +45,9 @@ export const createCar = async (car) => {
     return data
 }
 
-export const fetchCars = async (manufacturerId, carNameId, page, limit= 10) => {
+export const fetchCars = async (manufacturerId, carNameId, city, status, page, limit= 10) => {
     const {data} = await $host.get('api/car', {params: {
-            manufacturerId, carNameId, page, limit
+            manufacturerId, carNameId, city, status , page, limit
         }})
     return data
 }
@@ -42,6 +62,14 @@ export const changeStatus = async (id, value) => {
     return data;
 }
 
+export const changeCity = async (id, city) => {
+    const {data} = await $authHost({method:'PUT', url:`api/car/${id}`, data: city});
+    return data;
+}
+export const changeActive = async (id, value) => {
+    const {data} = await $authHost({method:'PUT', url:`api/car/${id}`, data: value});
+    return data;
+}
 export const deleteManufacturer = async (id) => {
     const {data} = await $authHost({method:'DELETE', url:'api/manufacturer/'+id});
     return data;

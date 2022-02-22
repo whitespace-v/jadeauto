@@ -47,6 +47,17 @@ const Manufacturer = sequelize.define('manufacturer', {
     id:                  {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name:                {type: DataTypes.STRING,    allowNull: false}
 })
+
+const CarActive = sequelize.define('car_active', {
+    id:                  {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name:                {type: DataTypes.STRING,    allowNull: false}
+})
+
+const CarStatus = sequelize.define('car_status', {
+    id:                  {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name:                {type: DataTypes.STRING,    allowNull: false}
+})
+
 const CarImages = sequelize.define('car_images', {
     id:                  {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     img:                 {type: DataTypes.STRING,    allowNull: false}
@@ -55,20 +66,34 @@ const CarImages = sequelize.define('car_images', {
 const CarNameManufacturer = sequelize.define('car_name_manufacturer', {
     id:                   {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 })
+const CarNameCarStatus = sequelize.define('car_name_car_status', {
+    id:                   {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+})
+const ManufacturerCarStatus = sequelize.define('manufacturer_car_status', {
+    id:                   {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+})
 
-// 1.USER-ORDER hasOne
-User.hasOne(Order)  // 1 user can have 1 order
-Order.belongsTo(User) // order belongs to user
+const CarActiveManufacturer = sequelize.define('car_active_manufacturer', {
+    id:                   {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+})
+const CarActiveCarName = sequelize.define('car_active_car_name', {
+    id:                   {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+})
+const CarActiveCarStatus = sequelize.define('car_active_car_status', {
+    id:                   {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+})
 
-// 2.ORDER-ORDER_CAR hasMany
-Order.hasMany(CarsInOrder) // 1 order can have many cars in order
+
+
+User.hasOne(Order)
+Order.belongsTo(User)
+
+Order.hasMany(CarsInOrder)
 CarsInOrder.belongsTo(Order)
 
-// 3.ORDER_CAR-CAR hasOne
 Car.hasMany(CarsInOrder)
 CarsInOrder.belongsTo(Car)
 
-//4.ORDER_CAR-CAR hasOne
 Car.hasMany(CarImages, {as: 'images'})
 CarImages.belongsTo(Car)
 
@@ -76,15 +101,34 @@ CarImages.belongsTo(Car)
 Manufacturer.hasMany(Car)
 Car.belongsTo(Manufacturer)
 
-// 6.Name-CAR hasMany
 CarName.hasMany(Car)
 Car.belongsTo(CarName)
 
-// 6.Name-MANUFACTURER belongsToMany
-CarName.belongsToMany(Manufacturer,{through: CarNameManufacturer})            // many manufacturers can have many car-names
-Manufacturer.belongsToMany(CarName,{through: CarNameManufacturer})    // many car-names can have many manufacturers
+CarStatus.hasMany(Car)
+Car.belongsTo(CarStatus)
 
+CarActive.hasMany(Car)
+Car.belongsTo(CarActive)
+
+// 6.Name-MANUFACTURER belongsToMany
+CarName.belongsToMany(Manufacturer,{through: CarNameManufacturer})
+CarName.belongsToMany(CarStatus,{through: CarNameCarStatus})
+CarName.belongsToMany(CarActive,{through: CarActiveCarName})
+
+Manufacturer.belongsToMany(CarName,{through: CarNameManufacturer})
+Manufacturer.belongsToMany(CarStatus,{through: ManufacturerCarStatus})
+Manufacturer.belongsToMany(CarActive,{through: CarActiveManufacturer})
+
+CarStatus.belongsToMany(Manufacturer,{through: ManufacturerCarStatus})
+CarStatus.belongsToMany(CarName,{through: CarNameCarStatus})
+CarStatus.belongsToMany(CarActive,{through: CarActiveCarStatus})
+
+CarActive.belongsToMany(CarName,{through: CarActiveCarName})
+CarActive.belongsToMany(Manufacturer,{through: CarActiveManufacturer})
+CarActive.belongsToMany(CarStatus,{through: CarActiveCarStatus})
 //export
 module.exports = {
-    User, Order, Manufacturer, CarsInOrder, Car, CarImages, CarName, CarNameManufacturer
+    User, Order, Manufacturer, CarsInOrder, Car, CarImages, CarName,
+    CarNameManufacturer, CarStatus, CarNameCarStatus, ManufacturerCarStatus,
+    CarActiveCarStatus, CarActive,CarActiveManufacturer,CarActiveCarName
 }

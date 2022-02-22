@@ -1,4 +1,4 @@
-//order page (not realized)
+//order page (not released)
 import React from 'react';
 
 const Order = () => {

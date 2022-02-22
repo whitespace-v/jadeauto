@@ -10,6 +10,7 @@ import SendMessage from '../components/modals/SendMessage'
 import Footer from "../components/Footer";
 import FullSize from '../components/modals/FullSize'
 import disableScroll from 'disable-scroll';
+import gif from '../assets/loader.gif'
 
 const CarPage = observer(() => {
     const {id} = useParams();
@@ -17,16 +18,22 @@ const CarPage = observer(() => {
     const [car, setCar] = useState({images: []});
     const [selectedImg,setSelectedImg] = useState(null)
     const [fullSizeVisible, setFullSizeVisible] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect( () => {
         window.scrollTo(0, 0);
         setSelectedImg(0);
         setFullSizeVisible(false)
-        fetchOneCar(id).then(data => setCar(data));
+        fetchOneCar(id)
+            .then(data => setCar(data))
+            .finally(() => setLoading(false))
     },[id]);
 
     fullSizeVisible ? disableScroll.on() : disableScroll.off()
 
+    if (loading) {
+        return <div className={classes.loader}> <img src={gif} alt='loading'/> </div>
+    }
     return (
         <Layout>
             <div className={classes['CarPage']}>
@@ -35,7 +42,7 @@ const CarPage = observer(() => {
                     {
                         car.status === 'Sold' ? <span
                             className={classes['CarPage__visual-alert']}
-                        > Эта машина продана ! </span> : null
+                        > Автомобиль продан ! </span> : null
                     }
                     {/** Car title **/}
                     <p
@@ -78,15 +85,18 @@ const CarPage = observer(() => {
 
                             }
                             {/** Last additional visual item -> video **/}
-                            <div className={classes['CarPage__visual-images-extends-item']}>
-                                <ReactPlayer
-                                    className={classes['video']}
-                                    url = {process.env.REACT_APP_API_URL + car.video}
-                                    onClick={() => setSelectedImg('video')}
-                                    light = {true}
-                                    style={selectedImg === 'video' ? {border:"3px solid white"} : {border:"1px solid grey"}}
-                                />
-                            </div>
+                            {car.video !== 'empty'?
+                                <div className={classes['CarPage__visual-images-extends-item']}>
+                                    <ReactPlayer
+                                        className={classes['video']}
+                                        url = {process.env.REACT_APP_API_URL + car.video}
+                                        onClick={() => setSelectedImg('video')}
+                                        light = {true}
+                                        style={selectedImg === 'video' ? {border:"3px solid white"} : {border:"1px solid grey"}}
+                                    />
+                                </div> : <span/>
+                            }
+
                         </div>
                     </div>
                 </div>

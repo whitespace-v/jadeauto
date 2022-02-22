@@ -7,18 +7,20 @@ import {Context} from "./index";
 import {check} from "./http/userAPI";
 import gif from './assets/loader.gif'
 import classes from './scss/Jade.module.scss'
-const App = observer(() => {
 
+const App = observer(() => {
     const {user} = useContext(Context)
     const [loading, setLoading] = useState(true)  // (is loading?) default -> loading (adding gif), check isAuth ? -> false
     const [userRole,setUserRole] = useState('')
 
     useEffect(() => {                               //send 1 time while app's opening
-        check().then(data => {                              //if check successful ->
-            user.setUser(true)                               //user -> true
-            user.setIsAuth(true)                              //authorization -> true
-            setUserRole(data.role)
-        }).finally(() => setLoading(false))                     //setLoading false anyway
+        check()
+            .then(data => {                              //if check successful ->
+                user.setUser(true)                               //user -> true
+                user.setIsAuth(true)                              //authorization -> true
+                setUserRole(data.role)
+            })
+            .finally(() => setLoading(false))                     //setLoading false anyway
     },[user])                                                 // dependencies, if null -> function will run only 1 time
 
     if (loading) {                                      //if loading -> loader
@@ -26,7 +28,7 @@ const App = observer(() => {
     }
 
     return (
-        <BrowserRouter> {/* for pagination working App needs to be wrapped in BrowserRouter tag */}
+        <BrowserRouter>
             <NavBar
                 userRole = {userRole}
             />

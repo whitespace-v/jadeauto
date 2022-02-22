@@ -2,6 +2,6 @@
 @import 'mixins';
 
 .CarNameBar{
-  margin-bottom: calc(10px + (20 - 10) * (100vw - 320px) / (1650 - 320)) ;
+  margin-bottom: 10px;
   @include sorting()
 }

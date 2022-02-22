@@ -1,60 +1,201 @@
-const uuid = require('uuid')                            //import unique ids
-const path = require('path')                              //import path
-const {Car, CarImages} = require('../models/models')          //import Car and car_info db models
-const ApiError = require('../error/ApiError')                 //import API errors
+const uuid = require('uuid')
+const path = require('path')
+const {Car, CarImages, CarStatus} = require('../models/models')
+const ApiError = require('../error/ApiError')
 const fs = require('fs')
 const sequelize  = require('../db')
+
+// const imagesCreation = async images => {
+//     if (images.length){
+//         for (let i = 0; i < images.length;i++) {
+//             imgName = uuid.v4() + '.jpg'
+//             await images[i].mv(path.resolve(__dirname,'..', 'static', imgName))
+//             await CarImages.create({
+//                 img: imgName,
+//                 carId: car.id
+//             })
+//         }
+//     }
+// }
+
 class CarController {
-    async create(req,res,next){                                 //create car
+    async create(req,res,next){
         try{
-            let {nameName, manufacturerName, price, manufacturerId,
+            let { nameName, manufacturerName, price, manufacturerId,
                 carNameId, year, motor, drive, mileage, city, date,
                 status, bodyNumber, description } = req.body
 
-            const {video, image, images} = req.files;                                                                 //request video
-            let videoName = uuid.v4() + '.mp4';                                                           //generate unique filename
-            let imgName  = uuid.v4() + '.jpg';
-            const car = await Car.create( {nameName, manufacturerName, price, manufacturerId,
-                carNameId, year, motor, drive, mileage, city, date, status, bodyNumber,
-                description, video: videoName, image: imgName})
-                .then(video.mv(path.resolve(__dirname,'..', 'static', videoName)))
-                .then(image.mv(path.resolve(__dirname,'..', 'static', imgName)))
+            if (city === '')
+                city = 'В наличии в Алмате'
 
-            if (images.length){
-                for (let i = 0; i<images.length;i++) {
-                    imgName = uuid.v4() + '.jpg'
-                    await images[i].mv(path.resolve(__dirname,'..', 'static', imgName))
-                    await CarImages.create({
-                        img: imgName,
-                        carId: car.id
-                    })
+            if (req.files.video) {
+                const {video, image, images} = req.files;                                                                 //request video
+                let videoName = uuid.v4() + '.mp4';                //generate unique filename
+                let imgName  = uuid.v4() + '.jpg';
+                const car = await Car.create( {nameName, manufacturerName, price, manufacturerId,
+                    carNameId, year, motor, drive, mileage, city, date, status, bodyNumber,
+                    description, video: videoName, image: imgName})
+                    .then(video.mv(path.resolve(__dirname,'..', 'static', videoName)))
+                    .then(image.mv(path.resolve(__dirname,'..', 'static', imgName)))
+                if (images.length){
+                    for (let i = 0; i<images.length;i++) {
+                        imgName = uuid.v4() + '.jpg'
+                        await images[i].mv(path.resolve(__dirname,'..', 'static', imgName))
+                        await CarImages.create({
+                            img: imgName,
+                            carId: car.id
+                        })
+                    }
                 }
+                // await imagesCreation(images)
+
+                return res.json(car)                        //return json result on client
+            } else {
+                const {image, images} = req.files;
+                let imgName  = uuid.v4() + '.jpg';
+                const car = await Car.create( {nameName, manufacturerName, price, manufacturerId,
+                    carNameId, year, motor, drive, mileage, city, date, status, bodyNumber,
+                    description, video: 'empty', image: imgName})
+                    .then(image.mv(path.resolve(__dirname,'..', 'static', imgName)))
+                if (images.length){
+                    for (let i = 0; i<images.length;i++) {
+                        imgName = uuid.v4() + '.jpg'
+                        await images[i].mv(path.resolve(__dirname,'..', 'static', imgName))
+                        await CarImages.create({
+                            img: imgName,
+                            carId: car.id
+                        })
+                    }
+
+                }
+                return res.json(car)                        //return json result on client
             }
-            return res.json(car)                        //return json result
+
         } catch (e){
-            next(ApiError.badRequest(e.message))        //if error trigger badRequest
+            next(ApiError.badRequest(e.message))
         }
     }
 
-    async getAll(req, res){                                          //get all and get filtered (by need) by manufacturer
-        let {manufacturerId, carNameId, limit, page} = req.query
+    async getAll(req, res){
+        let {manufacturerId, carNameId, city, status, limit, page} = req.query
+        if (status === 'Продано')
+            status = 'Sold'
+        if (status === 'В продаже' || status === 'В Продаже')
+            status = 'Active'
         page = page || 1
         limit = limit || 100
-        let offset = page * limit - limit                                 //skip limit cars on next page
+        let offset = page * limit - limit            //skip limit cars on next page
         let cars;
-        if (!manufacturerId && !carNameId){                                          //get all
-            cars = await Car.findAndCountAll({limit, offset, order: sequelize.literal('id DESC')})   //Descending order !
+        // carStatusId is actually simple carStatus but no time to redo =_=
+        /** get all cars **/
+        try{
+            if (!manufacturerId && !carNameId && !city && !status ){
+                cars = await Car.findAndCountAll(
+                    {limit, offset, order: sequelize.literal('id DESC')}
+                )
+            }
+            /** filter by manufacturer **/
+            if (manufacturerId && !carNameId && !city && !status ){
+                cars = await Car.findAndCountAll(
+                    {where: { manufacturerId }, limit, offset, order: sequelize.literal('id DESC')}
+                )
+            }
+            /** filter by car name **/
+            if (!manufacturerId && carNameId && !city && !status ){
+                cars = await Car.findAndCountAll(
+                    {where: { carNameId }, limit, offset, order: sequelize.literal('id DESC')}
+                )
+            }
+            /** filtering by car name and manufacturer **/
+            if (manufacturerId && carNameId && !city && !status ){
+                cars = await Car.findAndCountAll(
+                    {where: { carNameId, manufacturerId }, limit, offset, order: sequelize.literal('id DESC')}
+                )
+            }
+            /** filtering by carStatus **/
+            if (!manufacturerId && !carNameId && city && !status  ){
+                cars = await Car.findAndCountAll(
+                    {where: { city }, limit, offset, order: sequelize.literal('id DESC')})
+            }
+            /** filtering by carStatus and carNameId**/
+            if (!manufacturerId && carNameId && city && !status ){
+                cars = await Car.findAndCountAll(
+                    {where: { carNameId, city }, limit, offset, order: sequelize.literal('id DESC')})
+            }
+            /** filtering by carStatus and manufacturerId**/
+            if (manufacturerId && !carNameId && city && !status ){
+                cars = await Car.findAndCountAll(
+                    {where: { manufacturerId, city }, limit, offset, order: sequelize.literal('id DESC')})
+            }
+            if (manufacturerId && carNameId && city && !status ){
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { carNameId, manufacturerId, city },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            }
+            /** with ACTIVE **/
+            if (manufacturerId && carNameId && city && status ){ //mnca
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { carNameId, manufacturerId, city, status  },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            }
+            if (!manufacturerId && !carNameId && !city && status ){ //a
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { status  },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            }
+            if (!manufacturerId && !carNameId && city && status ){ //ca
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { city, status  },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            }
+            if (!manufacturerId && carNameId && city && status ){ //cna
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { carNameId, city, status  },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            } if (manufacturerId && !carNameId && city && status ){ //mca
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { manufacturerId , city, status  },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            }
+            if (manufacturerId && carNameId && !city && status ){ //mna
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { manufacturerId , carNameId, status  },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            }
+            if (manufacturerId && !carNameId && !city && status ){ //ma
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { manufacturerId , status  },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            }
+            if (!manufacturerId && carNameId && !city && status ){ //na
+                cars = await Car.findAndCountAll(
+                    {
+                        where: { carNameId , status  },
+                        limit, offset, order: sequelize.literal('id DESC')
+                    })
+            }
+            return res.json(cars)
+        } catch (e) {
+            console.log(e)
         }
-        if (manufacturerId && !carNameId){                                                          //filtering by manufacturer
-            cars = await Car.findAndCountAll({where: {manufacturerId}, limit, offset, order: sequelize.literal('id DESC')})
-        }
-        if (!manufacturerId && carNameId){                                          //filtering by car name
-            cars = await Car.findAndCountAll({where: {carNameId}, limit, offset, order: sequelize.literal('id DESC')})
-        }
-        if (manufacturerId && carNameId){                                           //filtering by car name and manufacturer
-            cars = await Car.findAndCountAll({where: {carNameId,manufacturerId}, limit, offset, order: sequelize.literal('id DESC')})
-        }
-        return res.json(cars)
+
+
     }
 
     async getOne(req,res){                      //get a car by id
@@ -74,17 +215,39 @@ class CarController {
                 .then( async data => {
                     //delete images
                     if(data) {
-                        //delete video
-                        fs.unlinkSync(path.resolve(__dirname, '..', 'static', data.dataValues.video))
+                        fs.access(path.resolve(__dirname, '..','static', data.dataValues.video), fs.F_OK, (err) => {
+                            //delete video
+                            if (err){
+                                console.log('No read Access')
+                            } else {
+                                console.log('deleted')
+                                fs.unlinkSync(path.resolve(__dirname, '..', 'static', data.dataValues.video))
+                            }})
                         //delete main image
-                        fs.unlinkSync(path.resolve(__dirname, '..', 'static', data.dataValues.image))
+                        fs.access(path.resolve(__dirname, '..','static', data.dataValues.image), fs.F_OK, (err) => {
+                            //delete video
+                            if (err){
+                                console.log('No read Access')
+                            } else {
+                                console.log('deleted')
+                                fs.unlinkSync(path.resolve(__dirname, '..', 'static', data.dataValues.image))
+                            }})
+
+
                         await CarImages.findAll({where: {carId: id}})
                             .then(data => {
                                 if (data) {
                                     try {
                                         for (let i = 0; i < data.length; i++) {
                                             //delete all another images
-                                            fs.unlinkSync(path.resolve(__dirname, '..', 'static', data[i].dataValues.img))
+                                            fs.access(path.resolve(__dirname, '..','static', data[i].dataValues.img), fs.F_OK, (err) => {
+                                                if (err){
+                                                    console.log('No read Access')
+                                                } else {
+                                                    console.log('deleted')
+                                                    fs.unlinkSync(path.resolve(__dirname, '..', 'static', data[i].dataValues.img))
+                                                }})
+
                                         }
                                     } catch (e) {
                                         console.error(e)
@@ -111,13 +274,23 @@ class CarController {
             const {id} = req.params;
             await Car.findOne({where:{id}})
                 .then( async data => {
-                    if(data) {
-                        await Car.update({status: req.body.status}, {where:{id}})
+                    console.log(req.body)
+                    if (req.body.status !== 'Sold' && req.body.status !== 'Active') {
+                        /** change city **/
+                        await Car.update(
+                            {city: req.body.status}, {where:{id}}
+                        )
                             .then(() => {
                                 return res.json("Car updated")
                             })
                     } else {
-                        return res.json("This Car doesn't exist in DB");
+                        /** change active status **/
+                        await Car.update(
+                            {status: req.body.status}, {where:{id}}
+                        )
+                            .then(() => {
+                                return res.json("Car updated")
+                            })
                     }
                 })
         } catch (e) {

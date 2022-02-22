@@ -20,17 +20,17 @@ const Auth = observer(() => {
     useEffect( () => {                                              //prevent first fetch = canceled
         if (user.isAuth) {
             navigate(JADE_ROUTE)
+            .then(window.location.reload())
         }
     },[user,navigate])
 
     const click = async (event) => {
         event.preventDefault()
         try {
-            let data;
             if (isLogin) {
-                data = await login(number, password);
+                await login(number, password);
             } else {
-                data = await registration(number, password)
+                await registration(number, password)
             }
             user.setUser(user)
             user.setIsAuth(true)

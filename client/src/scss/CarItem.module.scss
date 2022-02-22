@@ -8,7 +8,7 @@
   border: 1px solid $grey;
   border-left: none;
   .CarItem__photo {
-    width: 180px;
+    width: 260px;
     height: 148px;
     background-size: cover;
   }
@@ -42,7 +42,7 @@
     margin: calc(3px + (10 - 3) * ((100vw - 320px) / (1650 - 320))) 0;
     height: calc(75px + (150 - 75) * ((100vw - 320px) / (1650 - 320)));
     .CarItem__photo{
-      width: calc(90px + (180 - 90) * ((100vw - 320px) / (1650 - 320)));
+      width: calc(170px + (260 - 170) * ((100vw - 320px) / (1650 - 320)));
       height: calc(73px + (148 - 73) * ((100vw - 320px) / (1650 - 320)));
     }
     .CarItem__info{

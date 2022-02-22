@@ -41,9 +41,9 @@ const CreateCar = observer(({visible,setCarVisible})=> {
         //remove common event behavior
         event.preventDefault()
         //compress images
-        if (price && year && motor && drive && mileage && city && description
-            && bodyNumber && video && images.length
-            && car.selectedCarName.id && car.selectedManufacturer.id) {
+        if (price && year && motor && drive && mileage && description
+            && bodyNumber && images.length > 1 && car.selectedCarName.id && car.selectedManufacturer.id
+        ) {
             for (let i = 0; i < images.length; i++){
                 setPercentage(Math.round(i / images.length * 100))
                 setStatus(`Сжатие изображений: ${i+1} / ${images.length}`)
@@ -54,6 +54,7 @@ const CreateCar = observer(({visible,setCarVisible})=> {
             setCompressedImages(compressedImages)
             //append form
             setStatus('Загрузка данных')
+            if (city === '') setCity('В наличии в Алмате')
             const formData = new FormData()
             let date = new Date().toLocaleDateString()
             formData.append('nameName', car.selectedCarName.name)
@@ -70,7 +71,7 @@ const CreateCar = observer(({visible,setCarVisible})=> {
             formData.append('date', date)
             formData.append('status', 'Active')
             formData.append('bodyNumber', bodyNumber)
-            formData.append('video', video)
+            formData.append('video', video || 'empty')
             formData.append('image', compressedImages[0])
             setStatus('Загрузка изображений...')
             Array.from(compressedImages).forEach(image => {
@@ -169,8 +170,12 @@ const CreateCar = observer(({visible,setCarVisible})=> {
                             <input type="text" value={drive} onChange={e => setDrive(e.target.value)}/>
                         </div>
                         <div className={classes['Modal__data-input']}>
-                            <p>Город:</p>
-                            <input type="text" value={city} onChange={e => setCity(e.target.value)}/>
+                             <p>Наличие:</p>
+                            <select name="" id="" onChange={e => setCity(e.target.value)}>
+                                <option value="В наличии в Алмате">В наличии в Алмате</option>
+                                <option value="В наличии во Владивостоке">В наличии во Владивостоке</option>
+                                <option value="В пути">В пути</option>
+                            </select>
                         </div>
                         <div className={classes['Modal__data-input']}>
                             <p>Год:</p>

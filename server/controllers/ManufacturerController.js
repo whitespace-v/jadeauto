@@ -1,5 +1,5 @@
 const {Manufacturer} = require('../models/models')          //import car_manufacturer db model by destructuring
-const ApiError = require('../error/ApiError')                       //import API errors
+
 
 class ManufacturerController {
     async create(req,res){                                                  //create manufacturer

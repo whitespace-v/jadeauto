@@ -18,7 +18,7 @@ const StatusCar = ({visible,setStatusCarVisible}) => {
         await changeStatus(selectedCar, formData)
             .then( () => {
                 setStatusCarVisible(false)
-                window.location.reload();
+                window.location.reload(); //remove
             })
     }
     return (
@@ -46,7 +46,7 @@ const StatusCar = ({visible,setStatusCarVisible}) => {
                                         :
                                         <span> - Продана </span>
                                     }
-                                    <a href={`http://localhost:3000/car/${Car.id}`}> Страница </a>
+                                    <a href={`https://jadeautovl.ru/car/${Car.id}`}> Страница </a>
                                 </div>)
                         }
                     </div>
