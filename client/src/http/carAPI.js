@@ -66,6 +66,19 @@ export const changeCity = async (id, city) => {
     const {data} = await $authHost({method:'PUT', url:`api/car/${id}`, data: city});
     return data;
 }
+export const changePrice = async (id, price) => {
+    const {data} = await $authHost({method:'PUT', url:`api/car/${id}`, data: price});
+    return data;
+}
+export const changeDescription = async (id, description) => {
+    const {data} = await $authHost({method:'PUT', url:`api/car/${id}`, data: description});
+    return data;
+}
+export const changeImages = async (id, pictures) => {
+    const {data} = await $authHost({method:'PUT', url:`api/car/${id}`, data: pictures});
+    return data;
+
+}
 export const changeActive = async (id, value) => {
     const {data} = await $authHost({method:'PUT', url:`api/car/${id}`, data: value});
     return data;

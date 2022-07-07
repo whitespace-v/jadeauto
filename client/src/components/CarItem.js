@@ -6,7 +6,12 @@ import {CAR_ROUTE} from "../utils/consts";
 
 const CarItem = ({car}) => {
     const navigate = useNavigate();
-
+    let city;
+    if (car.status === 'Active') {
+        city = 'В продаже'
+    } else {
+        city = 'Продано'
+    }
     return (
         <div
             className={classes['CarItem']}
@@ -27,6 +32,7 @@ const CarItem = ({car}) => {
                 </div>
                 <div className={classes['CarItem__offer']}>
                     <p className={classes['CarItem__offer-price']}><b>{car.price}</b> ₽</p>
+                    <p className={classes['CarItem__offer-city']}>{car.city !== 'В пути' ? city: ''}</p>
                     <p className={classes['CarItem__offer-city']}>{car.city}</p>
                     <p className={classes['CarItem__offer-date']}>{car.date}</p>
                 </div>

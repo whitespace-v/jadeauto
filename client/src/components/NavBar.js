@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../index";
 import classes from "../scss/NavBar.module.scss";
 import logo from '../assets/original.png'
@@ -9,8 +9,7 @@ import {useNavigate} from "react-router-dom";
 import {ADMIN_ROUTE, JADE_ROUTE, LOGIN_ROUTE} from "../utils/consts";
 
 const NavBar = observer((userRole) => {
-
-    const {user} = useContext(Context)     //needed just in components that rendered different depended on authorization
+        const {user} = useContext(Context)
         const navigate = useNavigate()
 
         const logOut = () => {
@@ -18,6 +17,7 @@ const NavBar = observer((userRole) => {
             user.setIsAuth(false)
             localStorage.removeItem('token')
         }
+
         return (
             <Layout>
                 <div className={classes['NavBar']}>

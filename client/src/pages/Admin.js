@@ -16,6 +16,9 @@ import {fetchManufacturers, fetchCarNames, fetchCars, fetchCarStatuses, fetchCar
 import classes from '../scss/Admin.module.scss'
 import {observer} from "mobx-react-lite";
 import Footer from "../components/Footer";
+import PriceCar from "../components/modals/PriceCar";
+import DescriptionCar from "../components/modals/DescriptionCar";
+import ImagesCar from "../components/modals/ImagesCar";
 
 const Admin = observer(() => {
     const [ManufacturerVisible, setManufacturerVisible] = useState(false)
@@ -28,6 +31,9 @@ const Admin = observer(() => {
     const [cityCarVisible, setCityCarVisible] = useState(false)
     const [createCityCarVisible, setCreateCityCarVisible] = useState(false)
     const [createActiveVisible, setCreateActiveVisible] = useState(false)
+    const [descriptionVisible, setDescriptionVisible] = useState(false) // new
+    const [priceVisible, setPriceVisible] = useState(false) //new
+    const [imagesVisible, setImagesVisible] = useState(false) //new
     const {car} = useContext(Context)
 
     useEffect(() => {
@@ -76,6 +82,15 @@ const Admin = observer(() => {
                     <div
                         className={classes['Admin__panel-button']}
                         onClick={()=> setCityCarVisible(true)}>Смена местоположения машины</div>
+                    <div
+                        className={classes['Admin__panel-button']}
+                        onClick={()=> setDescriptionVisible(true)}>Смена описания машины</div>
+                    <div
+                        className={classes['Admin__panel-button']}
+                        onClick={()=> setPriceVisible(true)}>Смена цены машины</div>
+                    <div
+                        className={classes['Admin__panel-button']}
+                        onClick={()=> setImagesVisible(true)}>Изменение изображений</div>
                 </div>
 
 
@@ -118,6 +133,18 @@ const Admin = observer(() => {
                 <CityCar
                     visible={cityCarVisible}
                     setCityCarVisible={setCityCarVisible}
+                />
+                <PriceCar
+                    visible={priceVisible}
+                    setPriceVisible={setPriceVisible}
+                />
+                <DescriptionCar
+                    visible={descriptionVisible}
+                    setDescriptionVisible={setDescriptionVisible}
+                />
+                <ImagesCar
+                    visible={imagesVisible}
+                    setImagesVisible={setImagesVisible}
                 />
             </div>
             <Footer/>

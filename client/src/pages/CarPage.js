@@ -12,7 +12,7 @@ import FullSize from '../components/modals/FullSize'
 import disableScroll from 'disable-scroll';
 import gif from '../assets/loader.gif'
 
-const CarPage = observer(() => {
+const CarPage = observer(({userRole}) => {
     const {id} = useParams();
     const [SendMessageVisible, setSendMessageVisible] = useState(false)
     const [car, setCar] = useState({images: []});
@@ -24,16 +24,23 @@ const CarPage = observer(() => {
         window.scrollTo(0, 0);
         setSelectedImg(0);
         setFullSizeVisible(false)
+
         fetchOneCar(id)
             .then(data => setCar(data))
             .finally(() => setLoading(false))
     },[id]);
 
     fullSizeVisible ? disableScroll.on() : disableScroll.off()
-
     if (loading) {
         return <div className={classes.loader}> <img src={gif} alt='loading'/> </div>
     }
+    function sortByKey(array, key) {
+        return array.sort(function(a, b) {
+            let x = a[key]; let y = b[key];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    }
+    sortByKey(car.images, 'id')
     return (
         <Layout>
             <div className={classes['CarPage']}>
@@ -51,7 +58,10 @@ const CarPage = observer(() => {
                     >
                         {car.manufacturerName} {car.nameName}, {car.year} год
                     </p>
+
                     <div className={classes['CarPage__visual-images']}>
+
+
                         {/** Car Big Image or Video**/}
                         {car.images.length && selectedImg !== 'video' ?
                             <div
@@ -70,6 +80,9 @@ const CarPage = observer(() => {
                                 />
                             </div>
                         }
+
+
+
                         {/** Additional images **/}
 
                         <div className={classes['CarPage__visual-images-extends']}>
@@ -121,7 +134,7 @@ const CarPage = observer(() => {
 
                         <div className={classes['CarPage__info-details-item']}>
                             <p className={classes['CarItem__params-details-item-def']}>Город:</p>
-                            <p className={classes['CarItem__params-city']}>{car.city}</p>
+                            <p className={classes['CarItem__params-city']}>{car.status === 'Sold' ? 'Продано' : 'В наличии'}, {car.city}</p>
                         </div>
 
                         <div className={classes['CarPage__info-details-item']}>
@@ -135,7 +148,7 @@ const CarPage = observer(() => {
                         {/** To buy button **/}
                         <div
                             className={classes['CarPage__info-details-button']}
-                            onClick={()=> setSendMessageVisible(true)}
+                            onClick={() => setSendMessageVisible(true)}
                         >
                             Купить
                         </div>

@@ -14,6 +14,7 @@ const SendMessage = ({visible,setSendMessageVisible,car}) => {
             .then(setSendMessageVisible(false))
         :
         alert('Введите корректный телефон!')
+        // await emailjs.send('service_4vi8qrg', 'template_3je89fh', data, 'T4Wj5wNg9lgPTU_sL')//TODO
     }
     return (
         <div className={visible ? classes.Modal + ' '+ classes.visible : classes.Modal} onClick={() => setSendMessageVisible(false)}>

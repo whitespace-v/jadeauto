@@ -1,7 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Context} from "../../index";
 import classes from "../../scss/Modal.module.scss";
-import {createCar, fetchCarNames, fetchManufacturers} from "../../http/carAPI";
+import {createCar} from "../../http/carAPI";
 import {observer} from "mobx-react-lite";
 import imageCompression from 'browser-image-compression';
 
@@ -12,7 +12,7 @@ const CreateCar = observer(({visible,setCarVisible})=> {
     const [mileage,setMileage ] = useState('');
     const [motor,setMotor ] = useState('')
     const [drive , setDrive] = useState('');
-    const [city, setCity] = useState('');
+    const [city, setCity] = useState('Владивосток');
     const [year,setYear ] = useState('');
     const [video , setVideo] = useState(null);
     const [images , setImages] = useState([]);
@@ -32,11 +32,6 @@ const CreateCar = observer(({visible,setCarVisible})=> {
     const selectImages = e =>{
         setImages(e.target.files);
     }
-    useEffect(() => {
-        fetchManufacturers().then(data => car.setManufacturers(data));
-        fetchCarNames().then(data => car.setCarNames(data));
-    }, [car,percentage,status]);
-
     const addCar = async (event) => {
         //remove common event behavior
         event.preventDefault()
@@ -54,7 +49,7 @@ const CreateCar = observer(({visible,setCarVisible})=> {
             setCompressedImages(compressedImages)
             //append form
             setStatus('Загрузка данных')
-            if (city === '') setCity('В наличии в Алмате')
+            if (city === '') setCity('Алматы')
             const formData = new FormData()
             let date = new Date().toLocaleDateString()
             formData.append('nameName', car.selectedCarName.name)
@@ -127,7 +122,8 @@ const CreateCar = observer(({visible,setCarVisible})=> {
                                     className={classes['select']}
                                     key={manufacturer.id}
                                     onClick={() => car.setSelectedManufacturer(manufacturer)}
-                                    style={manufacturer.id === car.selectedManufacturer.id ? {borderBottom:"2px solid #CD3319"}: {borderBottom:"none"}}
+                                    style={manufacturer.id === car.selectedManufacturer.id ?
+                                        {borderBottom:"2px solid #CD3319"}: {borderBottom:"none"}}
                                 >
                                     {manufacturer.name}
                                 </div>)
@@ -144,7 +140,8 @@ const CreateCar = observer(({visible,setCarVisible})=> {
                                     className={classes['select']}
                                     key={CarName.id}
                                     onClick={() => car.setSelectedCarName(CarName)}
-                                    style={CarName.id === car.selectedCarName.id ? {borderBottom:"2px solid #CD3319"}: {borderBottom:"none"}}
+                                    style={CarName.id === car.selectedCarName.id ?
+                                        {borderBottom:"2px solid #CD3319"}: {borderBottom:"none"}}
                                 >
                                     {CarName.name}
                                 </div>)
@@ -170,11 +167,13 @@ const CreateCar = observer(({visible,setCarVisible})=> {
                             <input type="text" value={drive} onChange={e => setDrive(e.target.value)}/>
                         </div>
                         <div className={classes['Modal__data-input']}>
-                             <p>Наличие:</p>
+                            <p>Наличие:</p>
                             <select name="" id="" onChange={e => setCity(e.target.value)}>
-                                <option value="В наличии в Алмате">В наличии в Алмате</option>
-                                <option value="В наличии во Владивостоке">В наличии во Владивостоке</option>
-                                <option value="В пути">В пути</option>
+                                {car.statuses.map( status => {
+                                    return (
+                                        <option value={status.name} key={status.name}>{status.name}</option>
+                                    )
+                                })}
                             </select>
                         </div>
                         <div className={classes['Modal__data-input']}>

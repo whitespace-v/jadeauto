@@ -15,10 +15,12 @@
   pointer-events: none;
   &.visible{
     opacity: 1;
+    overflow-y: auto;
     pointer-events: all;
   }
 }
 .Modal__data{
+  margin-top: auto;
   padding: 20px;
   border-radius: 12px;
   background-color: #333;

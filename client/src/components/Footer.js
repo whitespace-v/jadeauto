@@ -9,7 +9,6 @@ const Footer = () => {
             <div className={classes['Footer']}>
                 <div className={classes['Footer__line']}/>
                 <div className={classes['Footer__container']}>
-
                     <div className={classes['Footer__column-logo']}>
                         <div
                             className={classes['Footer__column-logo-icon']}
@@ -18,8 +17,8 @@ const Footer = () => {
                         <div className={classes['Footer__column-logo-description']}>
                             <p>Jade Auto</p>
                             <p>Владивосток / Казахстан</p>
-                            <p className={classes['Footer__column-logo-description-v']}
-                            >beta: v1.8.1
+                            <p className={classes['Footer__column-logo-description-v']}>
+                                beta: v1.9.1
                             </p>
                         </div>
                     </div>
@@ -32,13 +31,13 @@ const Footer = () => {
                     </div>
                     <div className={classes['Footer__column-requisites']}>
                         <p>Тел:
-                            <a href="tel:+79089999929">+7 (908) 999-99-29</a>
+                            <a href="tel:+79089999929"> +7 (908) 999-99-29</a>
                         </p>
                         <p>Email:
-                            <a href="mailto:jadeautovl@mail.ru">jadeautovl@mail.ru</a>
+                            <a href="mailto:jadeautovl@mail.ru"> jadeautovl@mail.ru</a>
                         </p>
                         <p>Адрес:
-                            <a href="https://go.2gis.com/tz6ay6">Приморский край, <br/> г. Владивосток, Тухачевского 45</a>
+                            <a href="https://go.2gis.com/tz6ay6"> Приморский край, <br/> г. Владивосток, Тухачевского 45</a>
                         </p>
                     </div>
                 </div>

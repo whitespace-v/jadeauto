@@ -1,0 +1,4 @@
+ |draggable component (refactor extendedImages) to RFC
+ |if 'in deliver' -> 'in stock' not shown
+ |refactor twilio to gmailer SMTP !important
+ 

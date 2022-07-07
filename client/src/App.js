@@ -32,7 +32,9 @@ const App = observer(() => {
             <NavBar
                 userRole = {userRole}
             />
-            <AppRouter/>
+            <AppRouter
+                userRole = {userRole}
+            />
         </BrowserRouter>
     );
 
