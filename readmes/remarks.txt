@@ -1,0 +1,35 @@
++|footer
++|non-outline bootstrap pages
++|true ordered async uploading
++|compress files
++|status downloading
++|delete car component
++|remove input zooms on phones 
++|video thumbnails  
++|change Auth style
++|show all carNames when manufacturer selected
+-|show only carNames to certain manufacturer
++|iphone outline pages 
++|status bar downloading 
++|add body number input and in deleting modal
++|compress files
+~|get status and change to sold after 30 days
++|border 3px #fefefe fit to img
++|click to open in full size
++|after switch page scroll to first car
++|reverse queue
+ |save previous page 
+ |"Объем" вместо "Двигатель"
+ |Макс текст меньше
+ |Сохранять форматированние текста
+ 
+auth = 35b311aa9d33223701b48b4fc1612da4
+Дополнительно: Аукционная оценка 4, 5 балла, пробег 53000км по Японии. Обменов нет!!! Начало эксплуатации автомобиля в Японии-2018год.
+Нет ни одной крашеной, битой, ремонтированной детали. Автомобиль полностью отполирован и покрыт керамикой!
+1 владелец в Японии. Собран в Германии для внутреннего рынка Японии.
+Кожаный салон. Кожаный руль. 4 зонный климат-контроль
+Пакет комфортные сиденья с памятью, подогревом всех сидений.
+Камеры 360 градусов. Park Assist.
+Цифровая приборная панель. Комфортный доступ в автомобиль. Электропривод багажника. Двойные стекла с климатическим комфортом, включая лобовое стекло
+Все возможные системы безопасности: контроль всех зон автомобиля 360 во время движения.
+Техническая часть:

@@ -1,0 +1,9 @@
+@import "variables";
+@import 'mixins';
+
+.ManufacturerBar{
+  margin-bottom: 10px;
+  @include sorting()
+}
+
+

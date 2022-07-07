@@ -1,0 +1,17 @@
+@import 'variables';
+@import 'mixins';
+html {
+  height:100%;
+  width: 100%;
+}
+body {
+  font-family: $font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #333333;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

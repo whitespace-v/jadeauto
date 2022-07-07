@@ -1,0 +1,6 @@
+1. check for apache if it exists -> completely delete 
+2. apt clean all
+3. apt update 
+4. apt-dist upgrade
+5. apt install nginx
+6. pm2 start server & client

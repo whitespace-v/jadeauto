@@ -1,0 +1,32 @@
+@import 'variables';
+@import "mixins";
+.Admin{
+  .Admin__panel{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    p{
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      font-size: $f-middle;
+      border-bottom: 4px solid $red
+    }
+    .Admin__panel-button{
+      @include button();
+    }
+  }
+  margin-bottom: 20px;
+}
+@media (max-width: 1650px) {
+  .Admin{
+    .Admin__panel{
+      p{
+        font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1650 - 320)));
+      }
+      .Admin__panel-button{
+      }
+    }
+  }
+}

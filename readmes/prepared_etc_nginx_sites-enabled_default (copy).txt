@@ -1,0 +1,53 @@
+upstream client-upstream {
+    server    0.0.0.0:3000;
+    keepalive 15;
+}
+
+upstream back-upstream {
+    server    0.0.0.0:5000;
+    keepalive 15;
+}
+
+server {
+    server_name jadeautovl.ru www.jadeautovl.ru;
+
+    server_tokens off;
+    client_max_body_size 1000M;
+    root /var/www/prod/public;
+    index index.php index.html index.htm;
+
+    location / {
+         proxy_pass http://client-upstream;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection $http_upgrade;
+         proxy_set_header Host $host;
+
+    }
+
+    location /api {
+         proxy_pass http://back-upstream;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/jadeautovl.ru/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/jadeautovl.ru/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+
+server {
+    if ($host = jadeautovl.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+  listen 80;
+    server_name jadeautovl.ru www.jadeautovl.ru;
+    return 404; # managed by Certbot
+}
+

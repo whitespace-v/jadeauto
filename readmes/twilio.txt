@@ -1,0 +1,9 @@
+recovery-code: W9G_KoHPJvsQcaZHzHFyuBdJOS4kVKpy8IsP1n8P
+Auth-Token: 0a1956dfef0dbddc2864cf524171b881
+SID: AC953ca9af5ae7bc703727c0c5a9f92baf
+
+
+
+// no got what is that
+SID: SK0b1c38349e5a349de9bfdaab9dcf780f
+Secret: qwGcji4d24TNDTk4gQ1KuiplH9u34OQP

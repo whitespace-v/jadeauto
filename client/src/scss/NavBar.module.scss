@@ -1,0 +1,130 @@
+@import 'variables';
+.NavBar{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  .NavBar__logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover{
+      p {
+        color: $red;
+        transition: color 0.3s;
+      }
+    }
+    &:active, &:focus{
+      p{
+        color: $grey;
+        transition: color 0.3s;
+      }
+    }
+    .NavBar__logo-img{
+      width: 100px;
+      height: 100px;
+      background-size: cover;
+    }
+    p{
+      font-size: $f-middle;
+      color: #fefefe;
+    }
+  }
+  .NavBar__nav{
+    display: flex;
+    align-items: center;
+    .NavBar__nav-inst{
+      width: 30px;
+      height: 30px;
+      background-size: cover;
+      margin-right: 15px;
+    }
+    .NavBar__nav-phone{
+      display: flex;
+      padding-right:10px ;
+      p{
+        color: $grey;
+        margin-right: 5px;
+      }
+      a{
+        color: white;
+        text-decoration: none;
+        &:hover{
+          color: $red;
+          transition: color 0.3s;
+        }
+        &:active, &:focus{
+          color: $grey;
+          transition: color 0.3s;
+        }
+      }
+    }
+    .NavBar__nav-spacer{
+      width: 2px;
+      height: 30px;
+      background-color: $grey;
+    }
+    .NavBar__nav-log{
+      display: flex;
+      padding-left: 10px ;
+      color: white;
+      cursor: pointer;
+
+      p:first-child{
+        padding-right:10px ;
+      }
+      p:last-child{
+        &:hover{
+          color: $red;
+          transition: color 0.3s;
+        }
+        &:active, &:focus{
+          color: $grey;
+          transition: color 0.3s;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1650px) {
+  .NavBar {
+    .NavBar__logo {
+      .NavBar__logo-img {
+        width: calc(40px + (100 - 40) * (100vw - 320px) / (1650 - 320));
+        height: calc(40px + (100 - 40) * (100vw - 320px) / (1650 - 320));
+      }
+      p {
+        font-size: calc(12px + (24 - 12) * (100vw - 320px) / (1650 - 320));
+      }
+    }
+    .NavBar__nav {
+      .NavBar__nav-inst{
+        width: calc(14px + (30 - 14) * (100vw - 320px) / (1650 - 320));
+        height: calc(14px + (30 - 14) * (100vw - 320px) / (1650 - 320));
+        margin-right: calc(5px + (15 - 5) * (100vw - 320px) / (1650 - 320));
+      }
+      .NavBar__nav-phone {
+        padding-right: calc(3px + (10 - 3) * (100vw - 320px) / (1650 - 320));
+        p {
+          font-size: calc(8px + (18 - 8) * (100vw - 320px) / (1650 - 320));
+        }
+
+      }
+      .NavBar__nav-spacer {
+        height: calc(10px + (30 - 10) * (100vw - 320px) / (1650 - 320));
+        width: calc(1px + (2 - 1) * (100vw - 320px) / (1650 - 320));
+      }
+      .NavBar__nav-log{
+        padding-left: calc(3px + (10 - 3) * (100vw - 320px) / (1650 - 320)) ;
+        p{
+          font-size: calc(8px + (18 - 8) * (100vw - 320px) / (1650 - 320));
+        }
+        p:first-child{
+          padding-right: calc(3px + (10 - 3) * (100vw - 320px) / (1650 - 320)) ;
+        }
+      }
+      font-size: calc(8px + (18 - 8) * (100vw - 320px) / (1650 - 320));
+    }
+  }
+}
+

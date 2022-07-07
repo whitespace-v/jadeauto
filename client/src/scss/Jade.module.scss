@@ -1,0 +1,22 @@
+@import 'variables';
+.Jade{
+ color: white;
+ position: relative;
+}
+::selection {
+ background: $red /* Safari */
+}
+::-moz-selection {
+ background: $red /* Firefox */
+}
+.loader{
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%,-50%);
+ img{
+  width: 150px;
+  height: 150px;
+ }
+}
+

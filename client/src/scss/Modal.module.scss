@@ -1,0 +1,117 @@
+@import "variables";
+@import "mixins";
+.Modal{
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,.4 );
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: .5s;
+  pointer-events: none;
+  &.visible{
+    opacity: 1;
+    overflow-y: auto;
+    pointer-events: all;
+  }
+}
+.Modal__data{
+  margin-top: auto;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #333;
+  min-width: 320px ;
+  min-height: 320px;
+  transform: scale(0.5);
+  transition: 0.4s all;
+  display: block;
+  text-align: center;
+  color: white;
+  .Delete__option{
+    .select{
+      display: flex;
+      justify-content: space-between;
+      min-width: 350px;
+    }
+  }
+  .Modal__data-statusbar{
+    width: 200px;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    .Modal__data-statusbar-bar{
+      width: 180px;
+      border: 1px solid $grey;
+      margin-right: 5px;
+      .Modal__data-statusbar-bar-status{
+        width: 159px;
+        height: 100%;
+        background-color: $red;
+      }
+    }
+    .Modal__data-statusbar-percentage{
+    }
+  }
+  b{
+    font-size: $f-middle;
+  }
+  .SendMessage__input{
+    width: 200px;
+  }
+  .Modal__data-inputs{
+    .Modal__data-input{
+      display: flex;
+      justify-content: space-between;
+      p{
+        color: $grey;
+      }
+      input{
+        margin: 6px 0;
+      }
+    }
+  }
+  .select_container{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 350px;
+  }
+  .select{
+    cursor: pointer;
+    width: fit-content;
+    margin: 5px 5px 5px 0;
+    &:hover{
+      color: $red;
+      transition: color 0.4s;
+    }
+  }
+  input{
+    @include input();
+  }
+
+  &.visible{
+    transform: scale(1);
+  }
+  .Modal__data-button{
+    @include button();
+  }
+  input[type="file"] {
+    display: none;
+
+  }
+  .Modal__data-upload {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+   @include link();
+    text-overflow: ellipsis;
+  }
+}
+a{
+  @include link()
+}

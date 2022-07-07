@@ -1,0 +1,32 @@
+@import "variables";
+.pagination{
+  color: $grey;
+  height: 50px;
+  margin-top: 10px;
+  .pagination__element{
+    list-style: none;
+    display: flex;
+    .pagination__element-item{
+      margin-right: 30px;
+      font-size: $f-middle;
+      cursor: pointer;
+      &:hover{
+        color: white;
+      }
+      a, a:focus{
+        outline: none !important;
+      }
+    }
+  }
+}
+@media (max-width: 1650px) {
+  .pagination{
+    height: calc(20px + (50 - 20) * ((100vw - 320px) / (1650 - 320)));
+    .pagination__element{
+      .pagination__element-item{
+        margin-right: calc(20px + (30 - 20) * ((100vw - 320px) / (1650 - 320)));
+        font-size: calc(12px + (16 - 12) * ((100vw - 320px) / (1650 - 320)));
+      }
+    }
+  }
+}

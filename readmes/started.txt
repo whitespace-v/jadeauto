@@ -1,0 +1,26 @@
+#complex internet-catalog URL: JadeAuto.ru
+
+#Stack: PERN: ReactJS, React bootstrap, Axios, React-router-dom, Mob-X
+
+#Express: framework for Nodejs
+#PostgreSQL: СУБД
+#Sequelize - ORM (connect code with data base)
+#Func: 1.Database Diogram 2.Registration/auth JSON Web-token (JWT) 3.ErrorBoundary 4. Data connection scheme 5. OWN Rest API 6. Roles(admin,user,)
+
+ pg admin passwords: 1.кщще 2.root
+
+server 
+client
+
+npm init in server folder
+npm install express pg pg-hstore sequelize cors dotenv (framework express, СУБД postgress + pg-shstore, sequelize - ORM, from browser to server - cors, variables to enviroments)
+npm i -D nodemon (afterreload before changes)
+create script to run app in dev-mode. package.json:'scripts': "dev": nodemon index.js
+server->index.js
+
+repo:https://graandeamore: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@github.com/graandeamore/jadeauto.git
+
+
+123123qweqweqwe
+
+
