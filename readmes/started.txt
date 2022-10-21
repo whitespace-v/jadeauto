@@ -18,7 +18,6 @@ npm i -D nodemon (afterreload before changes)
 create script to run app in dev-mode. package.json:'scripts': "dev": nodemon index.js
 server->index.js
 
-repo:https://graandeamore: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@github.com/graandeamore/jadeauto.git
 
 
 123123qweqweqwe
