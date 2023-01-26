@@ -32,3 +32,4 @@ systemctl restart postgresql
 
 123123qwe
 grant all privileges on all tables in schema public to planck_user;
+grant all privileges on all sequences in schema public to planck_user;
